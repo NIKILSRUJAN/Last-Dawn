@@ -22,7 +22,16 @@ public class Bullet : MonoBehaviour
     // We will use this later to damage enemies!
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        // For now, just destroy the bullet if it hits any collider (like a wall)
+        // Check if the object we hit has the EnemyAI script attached
+        EnemyAI enemy = hitInfo.GetComponent<EnemyAI>();
+        
+        // If it DOES have the script, that means it's an enemy!
+        if (enemy != null)
+        {
+            enemy.TakeDamage(1); // Deal 1 damage
+        }
+
+        // Destroy the bullet after it hits anything (wall or enemy)
         Destroy(gameObject); 
     }
 }
